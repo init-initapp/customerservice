@@ -33,7 +33,7 @@ jobs:
         with:
           java-version: 11.0.4
       - name: Maven Sonar
-        run: mvn -B clean sona:sonar -Dsonar.host.url=${{ secrets.SONARQUBE_HOST }} -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }}
+        run: mvn -B clean sonar:sonar -Dsonar.host.url=${{ secrets.SONARQUBE_HOST }} -Dsonar.login=${{ secrets.SONARQUBE_TOKEN }}
           
   push_artifact_to_registry:
     name: Publish - GitHub Packages
