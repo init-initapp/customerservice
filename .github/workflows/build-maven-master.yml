@@ -65,3 +65,12 @@ jobs:
           registry: docker.pkg.github.com
           repository: ${{github.repository}}/${{ secrets.REPO }}
           tag_with_ref: true
+
+      - name: Run vulnerability scanner
+        uses: aquasecurity/trivy-action@0.0.7
+        with:
+          image-ref: 'docker.pkg.github.com/${{github.repository}}/${{ secrets.REPO }}:latest'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          severity: 'CRITICAL,HIGH'
