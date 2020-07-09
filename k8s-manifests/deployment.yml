@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customerservice
+  labels:
+    app: customerservice
+spec:
+  selector:
+    matchLabels:
+      app: customerservice
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: customerservice
+    spec:
+      containers:
+      - name: customerservice
+        image: docker.pkg.github.com/init-initapp/customerservice:latest
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 8080
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: customerservice
+  labels:
+    app: customerservice
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: customerservice
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80

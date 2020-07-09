@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: customerservice
+  labels:
+    app: customerservice
+spec:
+  type: ClusterIP
+  ports:
+  - port: 443
+  selector:
+    app: customerservice

@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    app: customerservice
+  name: customerservice
+spec:
+  rules:
+  - host: customerservice.init-initapp.run.initializ.io
+    http:
+      paths:
+      - backend:
+          serviceName: customerservice
+          servicePort: 443
+        path: /
